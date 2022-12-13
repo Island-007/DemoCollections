@@ -14,23 +14,22 @@ body,
 
 .svg-wrap {
     position: absolute;
-    top:0;
+    top:-10rem;
     left:50%;
     transform: translateX(-50%);
     width: 16rem;
     height: 16rem;
     z-index:9;
-    transform: rotate(180deg);
-    /* transform-origin: center; */
 }
 
 .svg-wrap .circle {
+    stroke: #faead6;
     stroke-dasharray:314;
     stroke-dashoffset:0;
 }
-.svg-wrap .circle-2 {
+.svg-wrap .progress {
+    stroke: #600000;
     stroke-dasharray:314;
-    stroke-dashoffset:157;
     stroke-linecap:round;
 }
 

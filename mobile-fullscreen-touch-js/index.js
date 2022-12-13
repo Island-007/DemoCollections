@@ -2,11 +2,13 @@
     const scrollPage = document.querySelector('.scroll-page')
     const scrollWrap = scrollPage.querySelector('.scroll-wrap')
     const sliders = scrollWrap.querySelectorAll('.slider-item')
+    const progress = scrollPage.querySelector('.progress')
 
     let startX = 0, moveX = 0, distanceX = 0, pageIdx = 0, isMove = false
     const pageWidth = scrollPage.offsetWidth
 
     function init() {
+        progress.setAttribute('stroke-dashoffset','-117')
         bindEvent()
     }
 
@@ -44,16 +46,18 @@
             if (distanceX > 0) {
                 pageIdx--
             }
-            setTransform(-pageIdx * pageWidth)
+            setTransform(-pageIdx * pageWidth,pageIdx)
         }
         startX = 0
         distanceX = 0
         isMove = false
     }
 
-    function setTransform(transX) {
+    function setTransform(transX,pageIdx) {
+        const progressPoint = ['-117','-77','-37','0']
         scrollWrap.style.transition = 'all 0.2s'
         scrollWrap.style.transform = `translateX(${transX}px)`
+        progress.setAttribute('stroke-dashoffset',progressPoint[pageIdx])
     }
 
     init()
