@@ -12,6 +12,28 @@ body,
     overflow: hidden;
 }
 
+.svg-wrap {
+    position: absolute;
+    top:0;
+    left:50%;
+    transform: translateX(-50%);
+    width: 16rem;
+    height: 16rem;
+    z-index:9;
+    transform: rotate(180deg);
+    /* transform-origin: center; */
+}
+
+.svg-wrap .circle {
+    stroke-dasharray:314;
+    stroke-dashoffset:0;
+}
+.svg-wrap .circle-2 {
+    stroke-dasharray:314;
+    stroke-dashoffset:157;
+    stroke-linecap:round;
+}
+
 .scroll-wrap {
     position:absolute;
     display: flex;
@@ -20,7 +42,7 @@ body,
 }
 
 .slider-item:nth-child(1) {
-    background-color:brown;
+    background-color:darksalmon;
 }
 .slider-item:nth-child(2) {
     background-color:burlywood;
@@ -42,4 +64,5 @@ body,
     display: flex;
     justify-content: center;
     align-items: center;
+    color:#fff;
 }
