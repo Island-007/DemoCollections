@@ -1,11 +1,3 @@
-<!--
- * @Author: zhangpeiwen
- * @Date: 2022-12-08 10:10:57
- * @LastEditTime: 2022-12-08 18:13:04
- * @LastEditors: zhangpeiwen
- * @Description: 
- * @FilePath: \LearnProject\vue-mobile-test\src\views\CountDownPage\index.vue
--->
 <template>
   <div class="countdown">
     <div class="countdown-box-wrap">
@@ -17,46 +9,67 @@
         v-show="runningFlag"
       ></div>
       <div class="time-box">
-        <CountDown :time="duration" v-slot="timeObj" @end="handleCountDownEnd">
-          {{timeObj.d}}:{{timeObj.hh}}:{{timeObj.mm}}:{{timeObj.ss}}
+        <CountDown
+          :time="duration"
+          v-slot="timeObj"
+          @end="handleCountDownEnd"
+          ref="countdown"
+        >
+          {{ timeObj.d }}:{{ timeObj.hh }}:{{ timeObj.mm }}:{{ timeObj.ss }}
         </CountDown>
       </div>
     </div>
     <div class="button-wrap">
-      <button @click="handleChangeState" class="btn-state">
-        {{ runningFlag ? '暂停计时' : '开始计时' }}
+      <button @click="handleBeginTick" class="btn-state" v-show="!runningFlag">
+        开始计时
       </button>
+      <button @click="handlePauseTick" class="btn-state" v-show="runningFlag">
+        暂停计时
+      </button>
+      <button @click="handleEndTick" class="btn-state">结束计时</button>
     </div>
   </div>
 </template>
 
 <script>
-import CountDown from '@/components/CountDown'
+import CountDown from "@/components/CountDown";
 export default {
-  name: 'CountDownPage',
+  name: "CountDownPage",
   data() {
     return {
       runningFlag: true,
-      duration: 10,
-      endFlag:false
-    }
+      duration: 100,
+      endFlag: false,
+    };
   },
-  components:{
-    CountDown
+  components: {
+    CountDown,
   },
   methods: {
-    handleChangeState() {
-      if(!this.endFlag) {
-        this.duration = 10
+    handleBeginTick() {
+      this.runningFlag = true;
+      if (this.endFlag) {
+        this.$refs.countdown.reset();
+        this.endFlag = false;
+      } else {
+        this.$refs.countdown.start();
       }
-      this.runningFlag = !this.runningFlag
+    },
+    handlePauseTick() {
+      this.runningFlag = false;
+      this.$refs.countdown.pause();
+    },
+    handleEndTick() {
+      this.runningFlag = false;
+      this.duration = 0;
+      this.$refs.countdown.pause();
     },
     handleCountDownEnd() {
-      this.endFlag = true
-      this.runningFlag = false
-    }
+      this.endFlag = true;
+      this.runningFlag = false;
+    },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -123,6 +136,9 @@ export default {
       background-color: rgb(210, 255, 210);
       font-size: 14px;
       letter-spacing: 2px;
+    }
+    .btn-state + .btn-state {
+      margin-left: 10px;
     }
   }
 }

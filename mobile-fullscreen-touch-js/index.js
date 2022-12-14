@@ -30,7 +30,7 @@
             return
         }
         distanceX = moveX - startX
-        setTransform(-pageIdx * pageWidth + distanceX)
+        setTransform(-pageIdx * pageWidth + distanceX,pageIdx)
         isMove = true
     }
 
